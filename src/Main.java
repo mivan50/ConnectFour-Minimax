@@ -32,7 +32,9 @@ public class Main {
                 Board.placePlayerDisc(gameBoard, playerCol);
             }
             else {
-
+                System.out.println("Computer move!");
+                int[] compMove = Minimax.findBestMove(gameBoard);
+                gameBoard[compMove[0]][compMove[1]] = 'R';
             }
 
             char winner = Board.checkWinner(gameBoard);
