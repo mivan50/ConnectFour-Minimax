@@ -1,35 +1,28 @@
 public class Board {
-    private static final int rows = 6;
-    private static final int col = 7;
+    private static final int ROWS = 6;
+    private static final int COLS = 7;
 
     public static void initialiseBoard(char[][] board) {
-        for (int i=0; i<rows; ++i) {
-            for (int j=0; j<col; ++j) {
+        for (int i=0; i<ROWS; ++i) {
+            for (int j=0; j<COLS; ++j) {
                 board[i][j] = ' ';
             }
         }
     }
 
     public static void display(char[][] grid) {
-        int numRows = grid.length;
-        int numCols = grid[0].length;
-
-        // Print the top border
-        for (int i = 0; i < numCols; i++) {
+        for (int i = 0; i < COLS; i++) {
             System.out.print("+---");
         }
         System.out.println("+");
 
-        // Print grid contents
-        for (int row = 0; row < numRows; row++) {
-            // Print row content and vertical lines
-            for (int col = 0; col < numCols; col++) {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
                 System.out.print("| " + grid[row][col] + " ");
             }
             System.out.println("|");
 
-            // Print horizontal lines between rows
-            for (int j = 0; j < numCols; j++) {
+            for (int j = 0; j < COLS; j++) {
                 System.out.print("+---");
             }
             System.out.println("+");
@@ -42,13 +35,6 @@ public class Board {
         System.out.println();
     }
 
-    public static boolean isColFull(char[][] board, int col) {
-        if (board[0][col] != ' ') {
-            return true;
-        }
-        return false;
-    }
-
     public static void placePlayerDisc(char[][] board, int col) {
         for (int i = 5; i >= 0; --i) {
             if (board[i][col] == ' ') {
@@ -56,5 +42,67 @@ public class Board {
                 break;
             }
         }
+    }
+
+    public static boolean isBoardFull(char[][] board) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLS; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static char checkWinner(char[][] board) {
+        // Check horizontal
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col <= COLS - 4; col++) {
+                char winner = checkFour(board[row][col], board[row][col + 1], board[row][col + 2], board[row][col + 3]);
+                if (winner != ' ') {
+                    return winner;
+                }
+            }
+        }
+
+        // Check vertical
+        for (int col = 0; col < COLS; col++) {
+            for (int row = 0; row <= ROWS - 4; row++) {
+                char winner = checkFour(board[row][col], board[row + 1][col], board[row + 2][col], board[row + 3][col]);
+                if (winner != ' ') {
+                    return winner;
+                }
+            }
+        }
+
+        // Check diagonal (from top-left to bottom-right)
+        for (int row = 0; row <= ROWS - 4; row++) {
+            for (int col = 0; col <= COLS - 4; col++) {
+                char winner = checkFour(board[row][col], board[row + 1][col + 1], board[row + 2][col + 2], board[row + 3][col + 3]);
+                if (winner != ' ') {
+                    return winner;
+                }
+            }
+        }
+
+        // Check diagonal (from bottom-left to top-right)
+        for (int row = 3; row < ROWS; row++) {
+            for (int col = 0; col <= COLS - 4; col++) {
+                char winner = checkFour(board[row][col], board[row - 1][col + 1], board[row - 2][col + 2], board[row - 3][col + 3]);
+                if (winner != ' ') {
+                    return winner;
+                }
+            }
+        }
+
+        return ' ';
+    }
+
+    private static char checkFour(char a, char b, char c, char d) {
+        if (a == b && a == c && a == d && a != ' ') {
+            return a;
+        }
+        return ' ';
     }
 }

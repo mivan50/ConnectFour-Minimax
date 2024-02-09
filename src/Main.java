@@ -24,7 +24,7 @@ public class Main {
             if (currPlayer == 'Y') {
                 System.out.println("Choose where to place disc");
                 int playerCol = scanner.nextInt();
-                while (playerCol > 6 || playerCol < 0 || Board.isColFull(gameBoard, playerCol)) {
+                while (playerCol > 6 || playerCol < 0 || gameBoard[0][playerCol] != ' ') {
                     System.out.println("That is not available!");
                     System.out.println("Choose where to place token");
                     playerCol = scanner.nextInt();
@@ -33,6 +33,32 @@ public class Main {
             }
             else {
 
+            }
+
+            char winner = Board.checkWinner(gameBoard);
+            ++turn;
+
+            if (winner != ' ') {
+                Board.display(gameBoard);
+                if (winner == 'Y') {
+                    System.out.println("Player has won!");
+                }
+                else {
+                    System.out.println("Computer has won!");
+                }
+                gameEnd = true;
+            }
+            else if (turn == 43) {
+                Board.display(gameBoard);
+                System.out.println("It's a tie!");
+                gameEnd = true;
+            }
+
+            if (currPlayer == 'Y') {
+                currPlayer = 'R';
+            }
+            else {
+                currPlayer = 'Y';
             }
         }
     }
