@@ -1,7 +1,6 @@
 import java.util.HashMap;
 
 public class Minimax {
-    // Define a transposition table
     private static final HashMap<String, TranspositionEntry> transpositionTable = new HashMap<>();
 
     public static int[] findBestMove(char[][] board) {
@@ -27,10 +26,8 @@ public class Minimax {
     }
 
     public static int minimax(char[][] board, int depth, int alpha, int beta, boolean isMaximising) {
-        // Generate a unique key for the current board state
         String boardKey = boardToString(board);
 
-        // Check if the board state is already stored in the transposition table
         if (transpositionTable.containsKey(boardKey)) {
             TranspositionEntry entry = transpositionTable.get(boardKey);
             if (depth - entry.getDepth() <= 6) {
@@ -66,7 +63,7 @@ public class Minimax {
                         break;
                 }
             }
-            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth)); // Store the board state and its score in the transposition table
+            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth));
             return bestScore;
         } else {
             int bestScore = Integer.MAX_VALUE;
@@ -82,7 +79,7 @@ public class Minimax {
                         break;
                 }
             }
-            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth)); // Store the board state and its score in the transposition table
+            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth));
             return bestScore;
         }
     }
