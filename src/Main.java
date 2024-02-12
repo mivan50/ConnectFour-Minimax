@@ -33,7 +33,7 @@ public class Main {
             }
             else {
                 System.out.println("Computer move!");
-                int[] compMove = Minimax.findBestMove(gameBoard);
+                int[] compMove = Minimax.findBestMove(gameBoard, turn);
                 gameBoard[compMove[0]][compMove[1]] = 'R';
             }
 
