@@ -3,7 +3,7 @@ import java.util.HashMap;
 public class Minimax {
     private static final HashMap<String, TranspositionEntry> transpositionTable = new HashMap<>();
 
-    public static int[] findBestMove(char[][] board) {
+    public static int[] findBestMove(char[][] board, int turn) {
         int bestVal = Integer.MIN_VALUE;
         int[] bestMove = {-1, -1};
         int[] columnOrder = {3, 2, 4, 1, 5, 0, 6};
@@ -12,7 +12,7 @@ public class Minimax {
             int j = getEmptySpace(board, i);
             if (j != -1) {
                 board[j][i] = 'R';
-                int moveVal = minimax(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+                int moveVal = minimax(board, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, false, turn);
                 board[j][i] = ' ';
                 if (moveVal > bestVal) {
                     bestMove[0] = j;
@@ -25,12 +25,12 @@ public class Minimax {
         return bestMove;
     }
 
-    public static int minimax(char[][] board, int depth, int alpha, int beta, boolean isMaximising) {
+    public static int minimax(char[][] board, int depth, int alpha, int beta, boolean isMaximising, int turn) {
         String boardKey = boardToString(board);
 
         if (transpositionTable.containsKey(boardKey)) {
             TranspositionEntry entry = transpositionTable.get(boardKey);
-            if (depth - entry.getDepth() <= 6) {
+            if (entry.getTurn() > 10 || entry.getTurn() - turn <= 4) {
                 return entry.getScore();
             }
         }
@@ -43,7 +43,7 @@ public class Minimax {
                 return 43 - depth;
             }
         }
-        if (Board.isBoardFull(board) || depth >= 15) {
+        if (Board.isBoardFull(board) || (depth >= 15 && turn <= 10)) {
             return 0;
         }
 
@@ -55,7 +55,7 @@ public class Minimax {
                 int j = getEmptySpace(board, i);
                 if (j != -1) {
                     board[j][i] = 'R';
-                    int score = minimax(board, depth + 1, alpha, beta, false);
+                    int score = minimax(board, depth + 1, alpha, beta, false, turn);
                     board[j][i] = ' ';
                     bestScore = Math.max(bestScore, score);
                     alpha = Math.max(alpha, bestScore);
@@ -63,7 +63,7 @@ public class Minimax {
                         break;
                 }
             }
-            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth));
+            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, turn));
             return bestScore;
         } else {
             int bestScore = Integer.MAX_VALUE;
@@ -71,7 +71,7 @@ public class Minimax {
                 int j = getEmptySpace(board, i);
                 if (j != -1) {
                     board[j][i] = 'Y';
-                    int score = minimax(board, depth + 1, alpha, beta, true);
+                    int score = minimax(board, depth + 1, alpha, beta, true, turn);
                     board[j][i] = ' ';
                     bestScore = Math.min(bestScore, score);
                     beta = Math.min(beta, bestScore);
@@ -79,7 +79,7 @@ public class Minimax {
                         break;
                 }
             }
-            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, depth));
+            transpositionTable.put(boardKey, new TranspositionEntry(bestScore, turn));
             return bestScore;
         }
     }
