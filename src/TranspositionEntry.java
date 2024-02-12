@@ -1,18 +1,18 @@
 
 public class TranspositionEntry {
     private final int score;
-    private final int depth;
+    private final int turn;
 
-    public TranspositionEntry(int score, int depth) {
+    public TranspositionEntry(int score, int turn) {
         this.score = score;
-        this.depth = depth;
+        this.turn = turn;
     }
 
     public int getScore() {
         return score;
     }
 
-    public int getDepth() {
-        return depth;
+    public int getTurn() {
+        return turn;
     }
 }
