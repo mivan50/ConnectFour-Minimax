@@ -1,6 +1,9 @@
 public class Board {
     private static final int ROWS = 6;
     private static final int COLS = 7;
+    private static final String RESET = "\u001B[0m";
+    private static final String RED = "\u001B[31m";
+    private static final String YELLOW = "\u001B[93m";
 
     public static void initialiseBoard(char[][] board) {
         for (int i=0; i<ROWS; ++i) {
@@ -18,7 +21,7 @@ public class Board {
 
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-                System.out.print("| " + grid[row][col] + " ");
+                System.out.print("| " + getColour(grid[row][col]) + grid[row][col] + " " + RESET);
             }
             System.out.println("|");
 
@@ -33,6 +36,14 @@ public class Board {
             System.out.print(i + "   ");
         }
         System.out.println();
+    }
+
+    private static String getColour(char token) {
+        return switch (token) {
+            case 'R' -> RED;
+            case 'Y' -> YELLOW;
+            default -> "";
+        };
     }
 
     public static void placePlayerDisc(char[][] board, int col) {
