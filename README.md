@@ -14,10 +14,10 @@ This is a Java implementation of the classic game Connect Four, featuring an AI 
 <table>
   <tr>
     <td align="center">
-      <img src="https://media.giphy.com/media/tM6mvT1h99Mgcxdgzl/giphy.gif" alt="Gameplay GIF 1" width="400"/>
+      <img src="https://media.giphy.com/media/tM6mvT1h99Mgcxdgzl/giphy.gif" alt="Gameplay GIF 1" width="350"/>
     </td>
     <td align="center">
-      <img src="https://media.giphy.com/media/LrvLz6H4oaYkcw7gqS/giphy.gif" alt="Gameplay GIF 2" width="400"/>
+      <img src="https://media.giphy.com/media/LrvLz6H4oaYkcw7gqS/giphy.gif" alt="Gameplay GIF 2" width="350"/>
     </td>
   </tr>
 </table>
