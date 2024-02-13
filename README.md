@@ -9,6 +9,19 @@ This is a Java implementation of the classic game Connect Four, featuring an AI 
 - **Transposition Table**: To enhance efficiency, a transposition table is implemented to store previously evaluated board positions, preventing redundant searches and speeding up the decision-making process.
 - **Alpha-Beta Pruning**: This optimization technique further reduces the search space by eliminating irrelevant branches of the game tree, focusing on the most promising moves.
 
+## Gameplay Showcase
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://media.giphy.com/media/tM6mvT1h99Mgcxdgzl/giphy.gif" alt="Gameplay GIF 1" width="400"/>
+    </td>
+    <td align="center">
+      <img src="https://media.giphy.com/media/LrvLz6H4oaYkcw7gqS/giphy.gif" alt="Gameplay GIF 2" width="400"/>
+    </td>
+  </tr>
+</table>
+
 ## Usage
 
 To play the game, simply run the `Main.java` file in your Java development environment.
